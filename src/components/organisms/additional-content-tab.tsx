@@ -15,10 +15,10 @@ export const AdditionalContentTab = ({
 	return (
 		<>
 			<div className="flex flex-col gap-2">
-				<DetailField label="Address" name="homeAddress" editable={editable} />
-				<DetailField label="Country" name="country" editable={editable} />
+				<DetailField label="Address*" name="homeAddress" editable={editable} />
+				<DetailField label="Country*" name="country" editable={editable} />
 				<DetailField
-					label="Postal Code"
+					label="Postal Code*"
 					name="postalCode"
 					editable={editable}
 				/>

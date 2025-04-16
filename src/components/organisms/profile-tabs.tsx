@@ -39,7 +39,7 @@ const basicDetailsSchema = z.object({
 		.string()
 		.email("Please enter a valid email address")
 		.min(1, "Email is required"),
-	profileImage: z.string().url("Profile image is required"),
+	profileImage: z.string().url().optional(),
 });
 
 const additionalDetailsSchema = z.object({
@@ -48,26 +48,27 @@ const additionalDetailsSchema = z.object({
 	postalCode: z.string().min(1, "Postal code is required"),
 	dateOfBirth: z
 		.string()
-		.min(1, "Date of birth is required")
 		.refine((value) => {
+			if (!value) return true;
 			const birthDate = new Date(value);
 			return birthDate <= minDate;
-		}, "You must be at least 17 years old"),
-	gender: z.string().min(1, "Gender is required"),
-	maritalStatus: z.string().min(1, "Marital status is required"),
+		}, "You must be at least 17 years old")
+		.optional(),
+	gender: z.string().optional(),
+	maritalStatus: z.string().optional(),
 });
 
 const spouseDetailsSchema = z.object({
-	spouseSalutation: z.string().min(1, "Spouse salutation is required"),
-	spouseFirstName: z.string().min(1, "Spouse first name is required"),
-	spouseLastName: z.string().min(1, "Spouse last name is required"),
+	spouseSalutation: z.string().optional(),
+	spouseFirstName: z.string().optional(),
+	spouseLastName: z.string().optional(),
 });
 
 const preferencesSchema = z.object({
-	hobbies: z.string().min(1, "Hobbies are required"),
-	favoriteSports: z.string().min(1, "Favorite sports are required"),
-	musicPreferences: z.string().min(1, "Music preferences are required"),
-	moviePreferences: z.string().min(1, "Movie preferences are required"),
+	hobbies: z.string().optional(),
+	favoriteSports: z.string().optional(),
+	musicPreferences: z.string().optional(),
+	moviePreferences: z.string().optional(),
 });
 
 export function ProfileTabs({

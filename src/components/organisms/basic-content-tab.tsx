@@ -19,15 +19,15 @@ export const BasicContentTab = ({
 				<ProfileImageUpload editable={editable} />
 
 				<DetailField
-					label="Salutation"
+					label="Salutation*"
 					name="salutation"
 					editable={editable}
 					selectOptions={["Mr.", "Ms.", "Mrs."]}
 					type="select"
 				/>
-				<DetailField label="First Name" name="firstName" editable={editable} />
-				<DetailField label="Last Name" name="lastName" editable={editable} />
-				<DetailField label="Email" name="email" editable={editable} />
+				<DetailField label="First Name*" name="firstName" editable={editable} />
+				<DetailField label="Last Name*" name="lastName" editable={editable} />
+				<DetailField label="Email*" name="email" editable={editable} />
 			</div>
 
 			{editable && (
