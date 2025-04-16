@@ -4,6 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { postRegister } from "../services/user.service";
+import { useState } from "react";
 
 export const RegisterSchema = z
 	.object({
@@ -19,6 +20,7 @@ export const RegisterSchema = z
 type RegisterSchemaType = z.infer<typeof RegisterSchema>;
 
 export const actionRegister = () => {
+	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 	const form = useForm<RegisterSchemaType>({
 		resolver: zodResolver(RegisterSchema),
@@ -26,6 +28,7 @@ export const actionRegister = () => {
 	});
 
 	const onSubmit = async (data: RegisterSchemaType) => {
+		setIsLoading(true);
 		try {
 			const res = await postRegister(data);
 
@@ -46,11 +49,14 @@ export const actionRegister = () => {
 					position: "bottom-center",
 				});
 			}
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	return {
 		...form,
 		onSubmit,
+		isLoading,
 	};
 };

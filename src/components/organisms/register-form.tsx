@@ -19,7 +19,8 @@ import { AuroraText } from "../atoms/aurora-text";
 import Link from "next/link";
 
 export function RegisterForm() {
-	const { handleSubmit, formState, onSubmit, register } = actionRegister();
+	const { handleSubmit, formState, onSubmit, register, isLoading } =
+		actionRegister();
 	const { errors, isValid } = formState;
 
 	return (
@@ -75,7 +76,12 @@ export function RegisterForm() {
 						)}
 					</div>
 
-					<Button type="submit" className="w-full" disabled={!isValid}>
+					<Button
+						type="submit"
+						className="w-full"
+						disabled={!isValid}
+						loading={isLoading}
+					>
 						Register
 					</Button>
 				</form>

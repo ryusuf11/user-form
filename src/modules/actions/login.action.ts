@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { setCookie } from "@/lib/cookie";
 import { useRouter } from "next/navigation";
 import { postLogin } from "../services/user.service";
+import { useState } from "react";
 
 const loginSchema = z.object({
 	id: z.string().min(1, "User ID is required"),
@@ -15,6 +16,7 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export const actionLogin = () => {
+	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 	const { register, handleSubmit, formState, control } = useForm<LoginFormData>(
 		{
@@ -23,6 +25,7 @@ export const actionLogin = () => {
 	);
 
 	const onSubmit = async (data: LoginFormData) => {
+		setIsLoading(true);
 		try {
 			const response = await postLogin({
 				username: data.id,
@@ -45,6 +48,8 @@ export const actionLogin = () => {
 					position: "bottom-center",
 				});
 			}
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -54,5 +59,6 @@ export const actionLogin = () => {
 		formState,
 		onSubmit,
 		control,
+		isLoading,
 	};
 };

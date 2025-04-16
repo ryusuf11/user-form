@@ -21,7 +21,7 @@ import { actionLogin } from "@/modules/actions/login.action";
 import { Controller } from "react-hook-form";
 
 export function LoginForm() {
-	const { handleSubmit, formState, onSubmit, register, control } =
+	const { handleSubmit, formState, onSubmit, register, control, isLoading } =
 		actionLogin();
 	const { errors, isValid } = formState;
 
@@ -90,6 +90,7 @@ export function LoginForm() {
 							className="w-full"
 							disabled={!isValid}
 							variant="default"
+							loading={isLoading}
 						>
 							Login
 						</Button>
