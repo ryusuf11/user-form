@@ -7,9 +7,7 @@ import {
 	TabsTrigger,
 	TabsContent,
 } from "@/components/molecules/tabs";
-import { DetailField } from "@/components/molecules/detail-field";
-import { ProfileImageUpload } from "@/components/molecules/profile-image-upload";
-import type { Gender, MaritalStatus, Prisma } from "@/generated/client";
+import type { Gender, MaritalStatus } from "@/generated/client";
 import { Button } from "../atoms/button";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,7 +39,7 @@ const basicDetailsSchema = z.object({
 		.string()
 		.email("Please enter a valid email address")
 		.min(1, "Email is required"),
-	profileImage: z.string().url(),
+	profileImage: z.string().url("Profile image is required"),
 });
 
 const additionalDetailsSchema = z.object({

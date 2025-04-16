@@ -12,11 +12,16 @@ interface Props {
 }
 
 export function ProfileImageUpload({ editable }: Props) {
-	const { control, setValue, watch } = useFormContext();
+	const {
+		control,
+		setValue,
+		watch,
+		formState: { errors },
+	} = useFormContext();
 	const imageUrl = watch("profileImage");
 
 	const [isUploading, setIsUploading] = useState(false);
-	const fileInputRef = useRef<HTMLInputElement | null>(null); // Create a ref for the file input
+	const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 	const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
@@ -40,7 +45,6 @@ export function ProfileImageUpload({ editable }: Props) {
 	};
 
 	const handleLabelClick = () => {
-		// Trigger the file input click when the label is clicked
 		fileInputRef.current?.click();
 	};
 
@@ -57,21 +61,19 @@ export function ProfileImageUpload({ editable }: Props) {
 			</div>
 
 			{editable && (
-				<div>
+				<div className="space-y-1">
 					<Controller
 						name="profileImage"
 						control={control}
 						render={() => (
 							<div className="flex items-center gap-2">
-								{/* Hidden file input with ref */}
 								<input
 									type="file"
 									accept="image/*"
 									onChange={handleUpload}
 									className="hidden"
-									ref={fileInputRef} // Attach the ref
+									ref={fileInputRef}
 								/>
-								{/* Label that triggers the file input */}
 								{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 								<label htmlFor="upload" onClick={handleLabelClick}>
 									<Button type="button" size="sm" disabled={isUploading}>
@@ -81,6 +83,11 @@ export function ProfileImageUpload({ editable }: Props) {
 							</div>
 						)}
 					/>
+					{errors.profileImage?.message && (
+						<p className="text-sm text-red-500">
+							{errors.profileImage.message.toString()}
+						</p>
+					)}
 				</div>
 			)}
 		</div>
