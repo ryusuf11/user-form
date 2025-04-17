@@ -47,7 +47,6 @@ export const handleRequest = async <T, D = unknown>({
 
 	if (method === "GET" && next) {
 		options.next = {
-			revalidate: 5 * 60,
 			...next,
 		};
 	}

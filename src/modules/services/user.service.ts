@@ -25,7 +25,6 @@ export const getUserInfo = async () => {
 	return await GET<{
 		user: AllUser;
 	}>("/api/profile", {
-		revalidate: 0,
 		tags: ["user"],
 	});
 };
