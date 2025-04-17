@@ -2,7 +2,7 @@
 
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/atoms/button";
 import {
@@ -14,6 +14,7 @@ import { AuroraText } from "../atoms/aurora-text";
 
 export default function Header() {
 	const pathname = usePathname();
+	const router = useRouter();
 
 	const routes = [
 		{ href: "/home", label: "Home" },
@@ -43,19 +44,23 @@ export default function Header() {
 						<Link href="/" className="flex items-center gap-2 mb-8">
 							<span className="font-bold">MyApp</span>
 						</Link>
-						<nav className="flex flex-col gap-4">
+						<nav className="flex flex-col gap-4 items-start">
 							{routes.map((route) => (
-								<Link
+								<Button
 									key={route.href}
-									href={route.href}
-									className={`text-sm font-medium transition-colors hover:text-primary ${
+									type="button"
+									variant="link"
+									onClick={() => {
+										router.push(route.href);
+									}}
+									className={`text-sm font-medium transition-colors hover:text-primary text-left ${
 										pathname === route.href
-											? "text-foreground"
+											? "text-primary"
 											: "text-muted-foreground"
 									}`}
 								>
 									{route.label}
-								</Link>
+								</Button>
 							))}
 						</nav>
 					</SheetContent>
